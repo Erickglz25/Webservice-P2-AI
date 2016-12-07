@@ -1,5 +1,6 @@
+
 <!doctype html> 
-<html ng-app="angularClient"> 
+<html ng-app="WebController"> 
 	<head> 
 	  <meta charset="UTF-8">
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,13 +14,28 @@
 				<h1>Angular Employee List <span class="label label-info">{{ employees.length }}</span></h1>
 		  </div>
 
+		  <table class="table">
+		    <thead>
+		      <tr>
+		        <th>Firstname</th>
+		        <th>Lastname</th>
+		        <th>Email</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr ng-repeat="employee in employees">
+		        <td>{{ employee.name }}</td>
+		      </tr>
+		    </tbody>
+		  </table>
+		  
 
-	 	<!--Lista de Todos-->
-		  <div id="client-list" class="row">
+	 	<!--Delete and display--> 
+		  <div id="employee-list" class="row">
 				<div class="col-sm-4 col-sm-offset-4">
 				 <div class="checkbox" ng-repeat="employee in employees">
 					<label>
-						<input type="checkbox" ng-click="deleteClient(employee._id)"> {{ employee.name }} 
+						<input type="checkbox" ng-click="deleteEmployee(employee._id)"> {{ employee.name }} 
 					</label>
 				 </div>
 				</div>
@@ -27,7 +43,7 @@
 
 
 	 	<!--Formulario para insertar nuevos Todo--> 
-	 		<div id="client-form" class="row">
+	 		<div id="employee-form" class="row">
 	 			<div class="col-sm-8 col-sm-offset-2 text-center">
 	 				<form>
 	 					<div class="form-group">
@@ -41,45 +57,58 @@
 	  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> 
 	  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script> 
 	  <script>
-			 angular.module('angularClient', []); 
+			angular.module('WebController', []); 
+
 			function mainController($scope, $http) { 
-			 $scope.formData = {};
-			 getEmployees();
+				 $scope.formData = {};
+				 getEmployees();
 
 			// Create Employee
-			 $scope.createEmployee = function(){
-			 $http.post('/api/employees', $scope.formData)
-			 .success(function(data) {
-			 $scope.formData = {};
-			 getEmployees();
-			 })
-			 .error(function(data) {
-			 console.log('Error:' + data);
-			 });
-			 };
+				 $scope.createEmployee = function(){
+				 	$http.post('/api/employees', $scope.formData)
+				 	.success(function(data) {
+				 		$scope.formData = {};
+				 		getEmployees();
+				 	})
+				 	.error(function(data) {
+				 		console.log('Error:' + data);
+				 	});
+				 };
 			
-			// Delete Client
+			// Delete Employee
 
-			$scope.deleteClient = function(id) {
-			 $http.delete('/api/employees/' + id)
-			 .success(function(data) {
-			 getEmployees();
-			 })
-			 .error(function(data) {
-			 console.log('Error:' + data);
-			 });
-			 };
+				$scope.deleteEmployee = function(id) {
+				  $http.delete('/api/employees/' + id)
+				  .success(function(data) {
+				 		getEmployees();
+				  })
+				  .error(function(data) {
+				 		console.log('Error:' + data);
+				  	});
+				  };
 
-			function getEmployees(){
-			 $http.get('/api/employees')
-			 .success(function(data) {
-			 $scope.employees = data;
-			 console.log(data)
-			 })
-			 .error(function(data) {
-			 console.log('Error: ' + data);
-			 }); 
-			 };
+				$scope.displayEmployee = function(id) {
+				  $http.delete('/api/employees/' + id)
+				  .success(function(data) {
+				 		getEmployees();
+				  })
+				  .error(function(data) {
+				 		console.log('Error:' + data);
+				  	});
+				  };
+
+
+
+				function getEmployees(){
+			 		$http.get('/api/employees')
+	 			  .success(function(data) {
+			  		$scope.employees = data;
+			 			console.log(data)
+			 		})
+			 		.error(function(data) {
+			 			console.log('Error: ' + data);
+			 		}); 
+			  };
 			}
 	 </script>
 	</body> 
