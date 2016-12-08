@@ -4,14 +4,18 @@
 	<head> 
 	  <meta charset="UTF-8">
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
-	  <title>Web Service</title>
-	  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+	  <title>Web Services</title>
+	  
+	   <link rel='stylesheet' href='/stylesheets/reset.css' />
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='./s.css' />
 	</head> 
 	<body ng-controller="mainController"> 
 	  <div class="container"> 
 	 	<!--Cabecera-->
-			<div class="jumbotron text-center">
-				<h1>Angular Employee List <span class="label label-info">{{ employees.length }}</span></h1>
+			<div class="jumbotron text-center" >
+				<h1 id="pp">Angular Employee List <span class="label label-info">{{ employees.length }}</span></h1>
 		  </div>
 
 		  <table class="table">
@@ -28,6 +32,8 @@
 		      </tr>
 		    </tbody>
 		  </table>
+
+
 		  
 
 	 	<!--Delete and display--> 
@@ -53,7 +59,39 @@
 	 				</form>
 	 			</div>
 	 		</div>
+
+
+
+
+	  <!-- Find By Id-->
+
+	  	<div>
+				
+					<input type="text" ng-model="valor">
+
+			
+			</div>
+
+		 	<div id="employee-list" class="row">
+				<div class="col-sm-4 col-sm-offset-4">
+				 
+					<label>
+					<form></form>
+
+						<button type="radio" ng-click="findEmployee('58477be9232619203cf62029')"> {{ valor }} </button>
+					</label>
+				 
+
+				</div>
+			</div>
+
+			{{ femployee.name }}
+			{{ valor }}
 	  </div>
+
+	  
+
+
 	  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> 
 	  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script> 
 	  <script>
@@ -87,17 +125,16 @@
 				  	});
 				  };
 
-				$scope.displayEmployee = function(id) {
-				  $http.delete('/api/employees/' + id)
-				  .success(function(data) {
-				 		getEmployees();
-				  })
-				  .error(function(data) {
-				 		console.log('Error:' + data);
-				  	});
-				  };
-
-
+				$scope.findEmployee = function(id){
+					$http.get('/api/employees/' + id)
+					.success(function(data){
+						$scope.femployee = data;
+						console.log(data)
+					})
+					.error(function(data){
+						console.log('Error: ' + data);
+					})
+				}
 
 				function getEmployees(){
 			 		$http.get('/api/employees')

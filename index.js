@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var methodOverrride = require('method-override');
 var mongoose = require('mongoose');
+var path = require('path');
 
 var app = express();
 var employees = express.Router();
@@ -16,19 +17,23 @@ db.once('open', function() {
 var employeeCtrl = require('./controllers/employee');
 //var models = require('./models/client')(app, mongoose);
 
-
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(methodOverrride());
 app.use('/api',employees);
 
+
+
 app.get('/', function(req, res, next) {
 // res.sendFile('./public/index.html');
 // res.sendFile(path.join(__dirname, '../public', 'index.html'));
 //res.sendFile('index.html' , { root : __dirname});
-	res.sendfile('index.html');
+res.sendfile('index.html')
 
 });
+
+	//res.sendfile('public/stylesheets/bootstrap.min.css')
 
 
 
