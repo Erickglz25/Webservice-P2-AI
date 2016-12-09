@@ -39,13 +39,16 @@
 		<!--Formulario para insertar nuevos Todo--> 
 	 	<div class="container">	
 	 		<div id="employee-form" class="row">
-	 			<div class="col-sm-8 col-sm-offset-2 text-center">
-	 				<form>
+	 			<div class="col-sm-7 text-center" >
+	 				<form class="borderForm">
 	 					<div class="form-group">
-	 						<input type="text" class="form-control input-lg text-center" placeholder="Inserta nuevo empleado" ng-model="formData.name">
+	 						<input type="text" class="form-control input-lg text-center" placeholder="Name" ng-model="formData.name">
 	 					</div>
-	 					<button class="btn btn-primary btn-lg" ng-click="createEmployee()">Añadir</button>
+	 					<button class="btn btn-primary btn-lg" ng-click="createEmployee()">Add a new employee</button>
 	 				</form>
+	 			</div>
+	 			<div class="col-sm-5">
+	 				<h2>Add more employees</h2>
 	 			</div>
 	 		</div>
 		</div>
@@ -54,7 +57,11 @@
 
 	 	<!--Delete and display--> 
 		  <div id="employee-list" class="row">
-				<div class="col-sm-4 col-sm-offset-4">
+		  	<div class="col-sm-4 col-sm-offset-3 ">
+		  		<h2 class="text-center"> Delete one employee at a time</h2>
+		  		
+		  	</div>
+				<div class="col-sm-4" >
 				 <div class="checkbox" ng-repeat="employee in employees">
 					<label>
 						<input type="checkbox" ng-click="deleteEmployee(employee._id)"> {{ employee.name }} 
@@ -62,41 +69,28 @@
 				 </div>
 				</div>
 			</div>
-
-
-	 	
-
-
-
+		</div>
 
 	  <!-- Find By Id-->
-
+	  <div class="container">
 	  	<div>
-				
-					<input type="text" ng-model="valor">
-
-			
+	  		<h2 class="text-center"> Employee details </h2>
 			</div>
 
-		 	<div id="employee-list" class="row">
-				<div class="col-sm-4 col-sm-offset-4">
-				 
-					<label>
-					<form></form>
-
-						<button type="radio" ng-click="findEmployee('58477be9232619203cf62029')"> {{ valor }} </button>
-					</label>
-				 
-
+		 	<div class="row">
+		 		<div class="col-md-4" >
+					<div ng-repeat="employee in employees">
+						<label>
+							<button type="button" class="btn btn-default btn-lg btn-block" ng-click="findEmployee(employee._id)" id="empButton"> {{ employee.name }} </button>
+						</label>
+					</div>
+				</div>
+				<div class="col-md-8">
+					{{ femployee.name }}
 				</div>
 			</div>
-
-			{{ femployee.name }}
-			{{ valor }}
 	  
-	  </div>
-
-	  
+	  </div> 
 
 
 	  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> 
