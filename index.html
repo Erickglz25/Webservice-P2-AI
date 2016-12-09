@@ -12,7 +12,7 @@
 	<body ng-controller="mainController"> 
 
 		<div class="jumbotron text-center" id="header">
-			<h1>NJ|E|M|A Employee List <span class="label label-info">{{ employees.length }}</span></h1>
+			<h1>NJ|E|M|A Employee List <span class="label label-info">!</span></h1>
 		</div>
 
 
@@ -95,7 +95,7 @@
 		 		<div class="col-md-4" >
 					<div ng-repeat="employee in employees">
 						<label>
-							<button type="button" class="btn btn-default btn-lg btn-block" ng-click="findEmployee(employee._id)" id="empButton"> {{ employee.name }} </button>
+							<button type="button" class="btn btn-default btn-lg btn-block" class="form-control" ng-click="findEmployee(employee._id)" id="empButton"> {{ employee.name }} </button>
 						</label>
 					</div>
 				</div>
@@ -103,7 +103,7 @@
 				<div class="col-md-8" id="empTarget">
 					<div class="col-md-5">
 						<address>
-							{{ femployee.name  + femployee.lastname}}<br>
+							{{ femployee.name  + ' ' + femployee.lastname}}<br>
 						  <strong>{{ femployee.position }}</strong><br>
 						  {{ femployee.address }}<br>
 						  {{ femployee.email }}<br>
@@ -125,6 +125,27 @@
 	  
 	  </div> 
 
+	  <div class="container-fluid">
+
+	  	<div class="col-sm-5 text-center col-sm-offset-5" class="editForm">
+	 				<form>
+	 					<div class="form-group">
+	 						<input type="text" class=" input-lg text-center" placeholder="First Name" ng-model="femployee.name">
+	 						<input type="text" class=" input-lg text-center" placeholder="Last Name" ng-model="femployee.lastname">
+	 						<input type="text" class=" input-lg text-center" placeholder="age" ng-model="femployee.age">
+	 						<input type="text" class=" input-lg text-center" placeholder="address" ng-model="femployee.address">
+	 						<input type="text" class=" input-lg text-center" placeholder="phone" ng-model="femployee.phone">
+	 						<input type="text" class=" input-lg text-center" placeholder="email" ng-model="femployee.email">
+	 						<input type="text" class=" input-lg text-center" placeholder="position" ng-model="femployee.position">
+	 						<input type="text" class=" input-lg text-center" placeholder="salary" ng-model="femployee.salary">
+	 						<input type="text" class=" input-lg text-center" placeholder="ssn" ng-model="femployee.ssn">
+	 					</div>
+	 					<button class="btn btn-primary btn-lg" ng-click="editEmployee(femployee._id)">Edit an employee</button>
+	 				</form>
+	 			</div>
+	  	
+	  </div>
+
 
 	  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> 
 	  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script> 
@@ -133,6 +154,7 @@
 
 			function mainController($scope, $http) { 
 				 $scope.formData = {};
+
 				 getEmployees();
 
 			// Create Employee
@@ -167,6 +189,17 @@
 					})
 					.error(function(data){
 						console.log('Error: ' + data);
+					})
+				}
+
+				$scope.editEmployee = function(id){
+					$http.put('api/employees/'+ id, $scope.femployee)
+					.success(function(data){
+						getEmployees();
+						$scope.formData = {};
+					})
+					.error(function(data){
+						console.log('Error', + data);
 					})
 				}
 
