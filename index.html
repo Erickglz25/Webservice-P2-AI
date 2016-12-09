@@ -25,11 +25,17 @@
 		        <th>Firstname</th>
 		        <th>Lastname</th>
 		        <th>Email</th>
+		        <th>Position</th>
+		        <th>ssn</th>
 		      </tr>
 		    </thead>
 		    <tbody>
 		      <tr ng-repeat="employee in employees">
 		        <td>{{ employee.name }}</td>
+		        <td>{{ employee.lastname }}</td>
+		        <td>{{ employee.email }}</td>
+		        <td>{{ employee.position }}</td>
+		        <td>{{ employee.ssn }}</td>
 		      </tr>
 		    </tbody>
 		  </table>
@@ -42,7 +48,15 @@
 	 			<div class="col-sm-7 text-center" >
 	 				<form class="borderForm">
 	 					<div class="form-group">
-	 						<input type="text" class="form-control input-lg text-center" placeholder="Name" ng-model="formData.name">
+	 						<input type="text" class="form-control input-lg text-center" placeholder="First Name" ng-model="formData.name">
+	 						<input type="text" class="form-control input-lg text-center" placeholder="Last Name" ng-model="formData.lastname">
+	 						<input type="text" class="form-control input-lg text-center" placeholder="age" ng-model="formData.age">
+	 						<input type="text" class="form-control input-lg text-center" placeholder="address" ng-model="formData.address">
+	 						<input type="text" class="form-control input-lg text-center" placeholder="phone" ng-model="formData.phone">
+	 						<input type="text" class="form-control input-lg text-center" placeholder="email" ng-model="formData.email">
+	 						<input type="text" class="form-control input-lg text-center" placeholder="position" ng-model="formData.position">
+	 						<input type="text" class="form-control input-lg text-center" placeholder="salary" ng-model="formData.salary">
+	 						<input type="text" class="form-control input-lg text-center" placeholder="ssn" ng-model="formData.ssn">
 	 					</div>
 	 					<button class="btn btn-primary btn-lg" ng-click="createEmployee()">Add a new employee</button>
 	 				</form>
@@ -63,9 +77,9 @@
 		  	</div>
 				<div class="col-sm-4" >
 				 <div class="checkbox" ng-repeat="employee in employees">
-					<label>
-						<input type="checkbox" ng-click="deleteEmployee(employee._id)"> {{ employee.name }} 
-					</label>
+					<h4>
+						<input type="checkbox" ng-click="deleteEmployee(employee._id)"> {{ employee.name }} {{ employee.lastname }}
+					</h4>
 				 </div>
 				</div>
 			</div>
@@ -85,8 +99,27 @@
 						</label>
 					</div>
 				</div>
-				<div class="col-md-8">
-					{{ femployee.name }}
+
+				<div class="col-md-8" id="empTarget">
+					<div class="col-md-5">
+						<address>
+							{{ femployee.name  + femployee.lastname}}<br>
+						  <strong>{{ femployee.position }}</strong><br>
+						  {{ femployee.address }}<br>
+						  {{ femployee.email }}<br>
+						  <abbr title="Phone">P:</abbr> {{ femployee.phone }}
+						</address>
+					</div>
+					<div class="col-md-7">
+						<dl class="dl-horizontal">
+							<dt> SSN: </dt>
+						  <dd>{{ femployee.ssn }}</dd>
+						  <dt> AGE: </dt>
+						  <dd>{{ femployee.age }}</dd>
+						  <dt> SALARY: </dt>
+						  <dd>{{ femployee.salary }}</dd>
+						</dl>
+					</div>
 				</div>
 			</div>
 	  

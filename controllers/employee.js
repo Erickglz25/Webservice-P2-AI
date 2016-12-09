@@ -31,8 +31,14 @@ exports.findById = function(req, res) {
 
 	var employee = new Employee({
 		name: req.body.name,
+		lastname: req.body.lastname,
+		age: req.body.age,
+		address: req.body.address,
+		phone: req.body.phone,
 		email: req.body.email,
-		genre: req.body.genre
+		position: req.body.position,
+		salary: req.body.salary,
+		ssn: req.body.ssn
 	});
 
 	employee.save(function(error, employee) {
@@ -42,15 +48,22 @@ exports.findById = function(req, res) {
 		res.status(200).jsonp(employee);
 	});
 	console.log(req.body);
-	console.log(req.body.name);
+	//console.log(req.body.name);
  };
  
  exports.update = function(req, res) {
 	 	
 	 Employee.findById(req.params.id, function(err, employee) {
-		 employee.name = req.body.name;
-		 employee.email = req.body.email;
-		 employee.genre = req.body.genre;
+
+		employee.name = req.body.name;
+		employee.lastname = req.body.lastname;
+		employee.age = req.body.age;
+		employee.address = req.body.address;
+		employee.phone = req.body.phone;
+		employee.email = req.body.email;
+		employee.position = req.body.position;
+		employee.salary = req.body.salary;
+		employee.ssn = req.body.ssn;
 		 employee.save(function(error) {
 			 if(error) return res.send(500, err.message);
 			 res.status(200).jsonp(employee);
