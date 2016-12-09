@@ -4,21 +4,22 @@
 	<head> 
 	  <meta charset="UTF-8">
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
-	  <title>Web Services</title>
-	  
-	   <link rel='stylesheet' href='/stylesheets/reset.css' />
+	  <title>Web Service</title>
+	  <link rel='stylesheet' href='/stylesheets/reset.css' />
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel='stylesheet' href='./s.css' />
 	</head> 
 	<body ng-controller="mainController"> 
-	  <div class="container"> 
-	 	<!--Cabecera-->
-			<div class="jumbotron text-center" >
-				<h1 id="pp">Angular Employee List <span class="label label-info">{{ employees.length }}</span></h1>
-		  </div>
 
-		  <table class="table">
+		<div class="jumbotron text-center" id="header">
+			<h1>NJ|E|M|A Employee List <span class="label label-info">{{ employees.length }}</span></h1>
+		</div>
+
+
+	  <div class="container"> 
+	 	<!--HEADER-->
+			
+		  <table class="table table-striped">
 		    <thead>
 		      <tr>
 		        <th>Firstname</th>
@@ -33,8 +34,23 @@
 		    </tbody>
 		  </table>
 
+		</div>
 
-		  
+		<!--Formulario para insertar nuevos Todo--> 
+	 	<div class="container">	
+	 		<div id="employee-form" class="row">
+	 			<div class="col-sm-8 col-sm-offset-2 text-center">
+	 				<form>
+	 					<div class="form-group">
+	 						<input type="text" class="form-control input-lg text-center" placeholder="Inserta nuevo empleado" ng-model="formData.name">
+	 					</div>
+	 					<button class="btn btn-primary btn-lg" ng-click="createEmployee()">Añadir</button>
+	 				</form>
+	 			</div>
+	 		</div>
+		</div>
+
+		<div class="container-fluid deletebkg">
 
 	 	<!--Delete and display--> 
 		  <div id="employee-list" class="row">
@@ -48,17 +64,7 @@
 			</div>
 
 
-	 	<!--Formulario para insertar nuevos Todo--> 
-	 		<div id="employee-form" class="row">
-	 			<div class="col-sm-8 col-sm-offset-2 text-center">
-	 				<form>
-	 					<div class="form-group">
-	 						<input type="text" class="form-control input-lg text-center" placeholder="Inserta nuevo empleado" ng-model="formData.name">
-	 					</div>
-	 					<button class="btn btn-primary btn-lg" ng-click="createEmployee()">Añadir</button>
-	 				</form>
-	 			</div>
-	 		</div>
+	 	
 
 
 
@@ -87,6 +93,7 @@
 
 			{{ femployee.name }}
 			{{ valor }}
+	  
 	  </div>
 
 	  

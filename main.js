@@ -1,39 +1,52 @@
-angular.module('angularClient', []); 
-function mainController($scope, $http) { 
- $scope.formData = {};
- getClients();
+angular.module('WebController', []); 
 
-// Create Client
- $scope.createClient = function(){
- $http.post('/api/v1/clients', $scope.formData)
- .success(function(data) {
- $scope.formData = {};
- getClients();
- })
- .error(function(data) {
- console.log('Error:' + data);
- });
- };
+			function mainController($scope, $http) { 
+				 $scope.formData = {};
+				 getEmployees();
 
-// Delete Client
- $scope.deleteClient = function(id) {
- $http.delete('/api/v1/clients/' + id)
- .success(function(data) {
- getClients();
- })
- .error(function(data) {
- console.log('Error:' + data);
- });
- };
+			// Create Employee
+				 $scope.createEmployee = function(){
+				 	$http.post('/api/employees', $scope.formData)
+				 	.success(function(data) {
+				 		$scope.formData = {};
+				 		getEmployees();
+				 	})
+				 	.error(function(data) {
+				 		console.log('Error:' + data);
+				 	});
+				 };
+			
+			// Delete Employee
 
-function getClients(){
- $http.get('/api/v1/clients')
- .success(function(data) {
- $scope.clients = data;
- console.log(data)
- })
- .error(function(data) {
- console.log('Error: ' + data);
- }); 
- };
-}
+				$scope.deleteEmployee = function(id) {
+				  $http.delete('/api/employees/' + id)
+				  .success(function(data) {
+				 		getEmployees();
+				  })
+				  .error(function(data) {
+				 		console.log('Error:' + data);
+				  	});
+				  };
+
+				$scope.findEmployee = function(id){
+					$http.get('/api/employees/' + id)
+					.success(function(data){
+						$scope.femployee = data;
+						console.log(data)
+					})
+					.error(function(data){
+						console.log('Error: ' + data);
+					})
+				}
+
+				function getEmployees(){
+			 		$http.get('/api/employees')
+	 			  .success(function(data) {
+			  		$scope.employees = data;
+			 			console.log(data)
+			 		})
+			 		.error(function(data) {
+			 			console.log('Error: ' + data);
+			 		}); 
+			  };
+			}
